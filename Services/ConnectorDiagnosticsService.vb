@@ -6,7 +6,7 @@ Imports Autodesk.Revit.DB.Mechanical
 Imports Autodesk.Revit.DB.Plumbing
 Imports Autodesk.Revit.DB.Electrical
 Imports Autodesk.Revit.UI
-
+'커밋 되는가
 Namespace KKY_Tool_Revit.Services
 
     Public Class ConnectorDiagnosticsService
