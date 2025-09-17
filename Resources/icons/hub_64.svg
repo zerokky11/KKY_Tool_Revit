@@ -1,0 +1,14 @@
+!-- ResourcesHubUIiconshub_64.svg --
+svg xmlns=httpwww.w3.org2000svg width=64 height=64 viewBox=0 0 64 64
+  defs
+    linearGradient id=g x1=0 y1=0 x2=1 y2=1
+      stop offset=0 stop-color=#6366f1
+      stop offset=1 stop-color=#8b5cf6
+    linearGradient
+  defs
+  rect x=2 y=2 width=60 height=60 rx=14 fill=url(#g)
+  circle cx=18 cy=20 r=4 fill=#fff opacity=0.9
+  circle cx=46 cy=20 r=4 fill=#fff opacity=0.9
+  rect x=18 y=30 width=28 height=4 rx=2 fill=#fff opacity=0.9
+  text x=32 y=50 font-family=Segoe UI, system-ui, sans-serif font-size=12 text-anchor=middle fill=#fff opacity=0.95HUBtext
+svg

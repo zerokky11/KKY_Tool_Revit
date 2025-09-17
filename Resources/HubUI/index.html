@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>KKY Tool – Hub</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/views.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* 인라인 로그 오버레이 */
+        #kky-log {
+            position: fixed;
+            inset: auto 8px 8px 8px;
+            height: 40vh;
+            z-index: 99999;
+            background: rgba(15,17,21,.96);
+            color: #e8eaed;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px;
+            display: none;
+            font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            box-shadow: 0 10px 40px rgba(0,0,0,.4);
+        }
+
+            #kky-log header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 6px 10px;
+                border-bottom: 1px solid rgba(255,255,255,.08)
+            }
+
+                #kky-log header .btn {
+                    background: #2b313c;
+                    border: 1px solid rgba(255,255,255,.08);
+                    border-radius: 6px;
+                    padding: 2px 8px;
+                    cursor: pointer
+                }
+
+            #kky-log pre {
+                margin: 0;
+                padding: 8px 10px;
+                height: calc(40vh - 36px);
+                overflow: auto;
+                white-space: pre-wrap;
+                word-break: break-word
+            }
+
+            #kky-log.show {
+                display: block
+            }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 인페이지 로그 콘솔 -->
+    <div id="kky-log" aria-hidden="true">
+        <header>
+            <strong>KKY Log Console (F12 닫기)</strong>
+            <div>
+                <button class="btn" id="kky-log-clear" type="button">지우기</button>
+                <button class="btn" id="kky-log-close" type="button">닫기</button>
+            </div>
+        </header>
+        <pre id="kky-log-body"></pre>
+    </div>
+
+    <!-- 전역 에러/콘솔 캡쳐 + F12 토글 -->
+    <script>
+        (function () {
+            const el = document.getElementById('kky-log');
+            const body = document.getElementById('kky-log-body');
+            const show = () => el.classList.add('show');
+            const hide = () => el.classList.remove('show');
+            const add = (msg, tag = 'log') => {
+                const t = new Date().toISOString().slice(11, 19);
+                body.textContent += `[${t}] ${tag.toUpperCase()}: ${msg}\n`;
+                body.scrollTop = body.scrollHeight;
+            };
+            window.addEventListener('keydown', (e) => { if (e.key === 'F12') { e.preventDefault(); el.classList.toggle('show'); } });
+            document.getElementById('kky-log-close').onclick = hide;
+            document.getElementById('kky-log-clear').onclick = () => { body.textContent = ''; };
+
+            const orig = { log: console.log, warn: console.warn, error: console.error };
+            console.log = (...a) => { try { add(a.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(' '), 'log'); } catch { } orig.log.apply(console, a); };
+            console.warn = (...a) => { try { add(a.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(' '), 'warn'); } catch { } orig.warn.apply(console, a); };
+            console.error = (...a) => { try { add(a.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(' '), 'error'); show(); } catch { } orig.error.apply(console, a); };
+
+            window.addEventListener('error', (e) => { add(`${e.message} @ ${e.filename}:${e.lineno}:${e.colno}`, 'error'); show(); });
+            window.addEventListener('unhandledrejection', (e) => { add(`UnhandledRejection: ${e.reason}`, 'error'); show(); });
+            // 초기 진단
+            add('Log console ready. Press F12 to toggle.', 'log');
+        })();
+    </script>
+
+    <!-- ★ 모듈로 로드: main.js가 나머지를 import 합니다 -->
+    <script type="module" src="js/main.js"></script>
+
+    <noscript>자바스크립트가 비활성화되어 있어 허브 UI를 표시할 수 없습니다.</noscript>
+</body>
+</html>

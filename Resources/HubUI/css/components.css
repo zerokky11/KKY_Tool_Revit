@@ -1,0 +1,224 @@
+﻿/* 칩/버튼/배지 */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    transition: background .12s,border-color .12s,color .12s;
+    cursor: pointer
+}
+
+    .chip:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 2px
+    }
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148,163,184,.18)
+}
+
+    .dot.ok {
+        background: #10b981;
+        box-shadow: 0 0 0 3px rgba(16,185,129,.2)
+    }
+
+    .dot.err {
+        background: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239,68,68,.22)
+    }
+
+.chip.pin.on {
+    background: #fff7cc;
+    border-color: #fde68a;
+    color: #a16207
+}
+
+.chip.pin.off {
+    background: var(--bg);
+    border-color: var(--border);
+    color: #94a3b8
+}
+
+.lock-ico {
+    font-size: 14px;
+    transition: transform .12s ease
+}
+
+.chip.pin.on .lock-ico {
+    transform: scale(1.1)
+}
+
+.theme-chip, .help-chip {
+    border: 1px solid var(--btn-sec-border);
+    background: var(--btn-sec);
+    color: var(--btn-sec-fg);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700
+}
+
+.kkyt-btn {
+    border: 1px solid var(--btn-border);
+    background: var(--btn);
+    color: var(--btn-fg);
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: .2px;
+    transition: transform .12s ease,filter .12s ease
+}
+
+    .kkyt-btn:hover {
+        filter: brightness(1.06);
+        transform: translateX(2px)
+    }
+
+    .kkyt-btn:active {
+        transform: translateX(1px)
+    }
+
+    .kkyt-btn:disabled {
+        opacity: .55;
+        cursor: not-allowed
+    }
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 10px
+}
+
+.kkyt-secondary {
+    background: var(--btn-sec);
+    color: var(--btn-sec-fg);
+    border-color: var(--btn-sec-border)
+}
+
+.kkyt-danger {
+    background: var(--danger);
+    color: var(--danger-fg);
+    border-color: var(--danger-border)
+}
+
+.kkyt-chip {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: var(--chip-bg);
+    color: var(--chip-fg)
+}
+
+.kkyt-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    font-size: 12px
+}
+
+/* 즐겨찾기 */
+.favbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0 18px;
+    flex-wrap: wrap
+}
+
+.star {
+    border: 1px solid var(--btn-sec-border);
+    background: var(--btn-sec);
+    color: #999;
+    border-radius: 999px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-weight: 700
+}
+
+    .star.on {
+        background: #fff7cc;
+        border-color: #fde68a;
+        color: #a16207
+    }
+
+.fav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--panel);
+    cursor: pointer;
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1);
+    will-change: transform
+}
+
+    .fav-chip .x {
+        color: #94a3b8;
+        font-weight: 900
+    }
+
+    .fav-chip .mv {
+        font-weight: 900;
+        color: #94a3b8;
+        padding: 0 6px;
+        cursor: pointer
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .fav-chip {
+        transition: none
+    }
+}
+
+/* 토스트 강조 색상 */
+.toast.ok {
+    background: #ecfdf5;
+    border-color: #6ee7b7
+}
+
+.toast.err {
+    background: #fef2f2;
+    border-color: #fecaca
+}
+
+/* === [열기] 버튼 보라색 톤 오버라이드 === */
+.card .kkyt-btn,
+.card .kkyt-btn.kkyt-primary,
+.card button[data-role="open"],
+.card .btn-primary {
+    background-color: #7b5fff !important;
+    border-color: #6a4de0 !important;
+    color: #fff !important;
+}
+
+    .card .kkyt-btn:hover,
+    .card .kkyt-btn.kkyt-primary:hover,
+    .card button[data-role="open"]:hover,
+    .card .btn-primary:hover {
+        background-color: #6a4de0 !important;
+        border-color: #5a3dcf !important;
+    }
+
+    .card .kkyt-btn:active,
+    .card .kkyt-btn.kkyt-primary:active,
+    .card button[data-role="open"]:active,
+    .card .btn-primary:active {
+        background-color: #5a3dcf !important;
+        border-color: #5232c9 !important;
+    }

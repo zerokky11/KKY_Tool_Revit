@@ -1,0 +1,138 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>KKY_Tool_Revit</RootNamespace>
+    <AssemblyName>KKY_Tool_Revit</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <Deterministic>false</Deterministic>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- 기본 포함 비활성(안전장치) -->
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <!-- 혹시 남아있는 기본 글롭 항목을 강제로 제거 -->
+  <ItemGroup>
+    <Compile Remove="**\*.vb" />
+    <Page Remove="**\*.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2592.51" />
+    <PackageReference Include="NPOI" Version="2.6.1" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <!-- 필요시
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>C:\Program Files\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>C:\Program Files\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+
+  <!-- 포함할 .vb만 명시 -->
+  <ItemGroup>
+    <Compile Include="APP.vb" />
+    <Compile Include="Commands\CmdOpenHub.vb" />
+    <Compile Include="Exports\PointsExport.vb" />
+    <Compile Include="Exports\ConnectorExport.vb" />
+    <Compile Include="Exports\DuplicateExport.vb" />
+    <Compile Include="Infrastructure\ResourceExtractor.vb" />
+    <Compile Include="Infrastructure\ExcelCore.vb" />
+    <Compile Include="Services\DuplicateAnalysisService.vb" />
+    <Compile Include="Services\ConnectorDiagnosticsService.vb" />
+    <Compile Include="Services\ExportPointsService.vb" />
+    <Compile Include="UI\Hub\UiBridgeExternalEvent.Export.vb" />
+    <Compile Include="UI\Hub\UiBridgeExternalEvent.Connector.vb" />
+    <Compile Include="UI\Hub\UiBridgeExternalEvent.Duplicate.vb" />
+    <Compile Include="UI\Hub\UiBridgeExternalEvent.Core.vb" />
+    <Compile Include="UI\Hub\HubHostWindow.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    
+    <EmbeddedResource Include="Resources\icons\hub_64.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\HubUI\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\icons\hub_64.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Resources\HubUI\css\views.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\css\components.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\css\base.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\core\topbar.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\core\state.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\core\theme.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\core\bridge.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\core\dom.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\dev-entry.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\main.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\views\export.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\views\conn.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\views\dup.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\js\views\home.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Resources\HubUI\styles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
